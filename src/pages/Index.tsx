@@ -1,13 +1,27 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+
+import { useState } from "react";
+import { TransactionProvider } from "@/context/TransactionContext";
+import Header from "@/components/Header";
+import Dashboard from "@/pages/Dashboard";
+import TransactionsPage from "@/pages/TransactionsPage";
+import TabNavigation from "@/components/TabNavigation";
 
 const Index = () => {
+  const [activeTab, setActiveTab] = useState("dashboard");
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
+    <TransactionProvider>
+      <div className="min-h-screen bg-background">
+        <Header />
+
+        <main className="container mx-auto px-4 pb-12">
+          <TabNavigation activeTab={activeTab} onChange={setActiveTab} />
+
+          {activeTab === "dashboard" && <Dashboard />}
+          {activeTab === "transactions" && <TransactionsPage />}
+        </main>
       </div>
-    </div>
+    </TransactionProvider>
   );
 };
 
